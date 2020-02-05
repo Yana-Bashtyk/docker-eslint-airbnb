@@ -1,18 +1,22 @@
 #!/bin/sh
 # Run eslint, copying in specific eslint rules
 
-if ls /app/.eslintrc.* 1> /dev/null 2>&1; then
+if ls ./.eslintrc.* 1> /dev/null 2>&1; then
   eslint_rc=true
 else
-  cp /root/.eslintrc.yml /app/.eslintrc.yml
+  cp /root/.eslintrc.yml ./.eslintrc.yml
 fi
-
-eslint "$@"
 
 if [ "$eslint_rc" = true ]
 then
-  echo "--- ESlint Complete ---"
+  eslint "$@" && echo "--- ESlint Complete ---" || {
+    echo "--- ESlint Complete ---"
+    exit 1;
+  }
 else
-  rm /app/.eslintrc.yml
-  echo "--- ESlint Complete ---"
+  eslint "$@" && rm ./.eslintrc.yml && echo "--- ESlint Complete ---" || {
+    echo "--- ESlint Complete ---"
+    rm ./.eslintrc.yml
+    exit 1;
+  }
 fi
