@@ -1,7 +1,7 @@
-FROM node:13-alpine
+FROM node:16-alpine
 LABEL maintainer="yankabashtyk16@gmail.com" \
-      version="1.0" \
-      docker.cmd="docker run --rm -it -v $(pwd):/app yanabashtyk/eslint"
+      version="3.0" \
+      docker.cmd="docker run --rm -it -v $(pwd):/app yanabashtyk/eslint:16-alpine"
 
 # Install required NPM packages globally
 RUN npm install -g eslint eslint-config-airbnb eslint-plugin-react eslint-plugin-import
